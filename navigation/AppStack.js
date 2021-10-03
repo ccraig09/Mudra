@@ -62,7 +62,7 @@ const AppStack = () => {
     >
       <Tab.Screen
         name="Home"
-        component={HomeScreen}
+        component={HomeStack}
         options={{
           tabBarIcon: ({ color }) => (
             <Icon name="home-filled" color={color} size={28} />
@@ -124,60 +124,19 @@ const AppStack = () => {
   );
 };
 
-// const HomeStack = ({ navigation }) => (
-//   <Stack.Navigator initialRouteName="Home">
-//     <Stack.Screen
-//       name="Home"
-//       component={HomeScreen}
-//       options={({ navigation }) => ({
-//         title: "",
-//         headerShown: false,
-//       })}
-//     />
-//     <Stack.Screen
-//       name="Onboarding"
-//       component={OnboardingScreen}
-//       options={{
-//         title: "Niveles",
-//       }}
-//     />
-//     <Stack.Screen
-//       name="Section"
-//       component={SectionScreen}
-//       options={{
-//         title: "Niveles",
-//       }}
-//     />
-//     <Stack.Screen
-//       name="Details"
-//       component={DetailsScreen}
-//       options={{
-//         title: "Niveles",
-//       }}
-//     />
-//     <Stack.Screen
-//       name="Video"
-//       component={VideoScreen}
-//       options={{
-//         title: "Niveles",
-//       }}
-//     />
-//     <Stack.Screen
-//       name="Qr"
-//       component={QrScreen}
-//       options={{
-//         title: "Codigo Qr",
-//       }}
-//     />
-//     <Stack.Screen
-//       name="Edit"
-//       component={EditProfileScreen}
-//       options={{
-//         title: "Editar Perfil",
-//       }}
-//     />
-//   </Stack.Navigator>
-// );
+const HomeStack = ({ navigation }) => (
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen
+      name="Home"
+      component={HomeScreen}
+      options={({ navigation }) => ({
+        title: "",
+        headerShown: false,
+      })}
+    />
+    <Stack.Screen name="Details" component={DetailsScreen} />
+  </Stack.Navigator>
+);
 
 // const ProfileStackScreen = ({ navigation }) => (
 //   <Stack.Navigator>

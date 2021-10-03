@@ -76,7 +76,7 @@ const HomeScreen = ({ navigation }) => {
       <TouchableHighlight
         underlayColor={Colors.white}
         activeOpacity={0.9}
-        onPress={() => navigation.navigate("DetailsScreen", food)}
+        onPress={() => navigation.navigate("Details", food)}
       >
         <View style={style.card}>
           <View style={{ alignItems: "center", top: -40 }}>
