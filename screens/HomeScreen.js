@@ -23,16 +23,38 @@ const cardWidth = width / 2 - 20;
 
 const HomeScreen = ({ navigation }) => {
   const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0);
-  const [ displayMeals, setDisplayMeals] = useState(foods.filter((food)=> food.category == "Popular"))
+  const [ displayMeals, setDisplayMeals] = useState(foods.filter((food)=> food.popular == true))
+  const [inMemoryFood, setInMemoryFood] = useState(foods);
 
   // useEffect(() => {
   // }, []);
 
   const selectedCategoryHandler = (index) => {
     setSelectedCategoryIndex(index)
-    // console.log(foods.filter((food)=> food.category == categories[index].name))
-    setDisplayMeals(foods.filter((food)=> food.category == categories[index].name))
+    if(categories[index].name == "Popular"){
+      console.log('we famous')
+      const popularFood =  foods.filter((food)=> food.popular == true)
+      console.log(popularFood)
+      setDisplayMeals(popularFood)
+    } else{
+      
+      console.log('not so poppin')
+      setDisplayMeals(foods.filter((food)=> food.category == categories[index].name))
+    }
   }
+
+  const searchFood = (value) => {
+    const filteredFood = inMemoryFood.filter((food) => {
+      let foodLowercase = (
+        food.name 
+      ).toLowerCase();
+
+      let searchTermLowercase = value.toLowerCase();
+
+      return foodLowercase.indexOf(searchTermLowercase) > -1;
+    });
+    setDisplayMeals(filteredFood);
+  };
 
   const ListCategories = () => {
     return (
@@ -150,8 +172,11 @@ const HomeScreen = ({ navigation }) => {
           <Icon name="search" size={28} />
           <TextInput
             style={{ flex: 1, fontSize: 18 }}
-            placeholder="Search for food"
+            placeholder="Buscar"
+            onChangeText={(value) => searchFood(value)}
+            clearButtonMode="while-editing"
           />
+          {/* <Icon name="close" size={20} /> */}
         </View>
         <View style={style.sortBtn}>
           <Icon name="tune" size={28} color={Colors.white} />
