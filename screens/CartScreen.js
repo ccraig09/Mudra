@@ -1,10 +1,13 @@
 import React from "react";
-import { SafeAreaView, StyleSheet, View, Text, Image } from "react-native";
+import { SafeAreaView, StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import Colors from "../constants/Colors";
 import foods from "../components/foods";
 import { PrimaryButton } from "../components/Button";
+import CartItem from "../components/shop/CartItem";
+import Card from "../components/UI/Card";
+
 
 const CartScreen = ({ navigation }) => {
   const CartCard = ({ item }) => {
@@ -30,8 +33,12 @@ const CartScreen = ({ navigation }) => {
         <View style={{ marginRight: 20, alignItems: "center" }}>
           <Text style={{ fontWeight: "bold", fontSize: 18 }}>3</Text>
           <View style={style.actionBtn}>
-            <Icon name="remove" size={25} color={Colors.white} />
+            <TouchableOpacity style={{marginTop: 2}} onPress={()=>{console.log('minus')}}>
+            <Icon  name="remove" size={25} color={Colors.white} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={()=>{console.log('plus')}}>
             <Icon name="add" size={25} color={Colors.white} />
+            </TouchableOpacity>
           </View>
         </View>
       </View>
@@ -87,15 +94,19 @@ const style = StyleSheet.create({
     paddingHorizontal: 10,
     flexDirection: "row",
     alignItems: "center",
+    shadowColor: "black",
+    shadowOpacity: 0.26,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 8,
   },
   actionBtn: {
-    width: 80,
+    width: 90,
     height: 30,
     backgroundColor: Colors.primary,
     borderRadius: 30,
     paddingHorizontal: 5,
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "space-around",
     alignContent: "center",
   },
 });
