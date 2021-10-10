@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import {
   Dimensions,
   Image,
@@ -22,7 +22,17 @@ const { width } = Dimensions.get("screen");
 const cardWidth = width / 2 - 20;
 
 const HomeScreen = ({ navigation }) => {
-  const [selectedCategoryIndex, setSelectedCategoryIndex] = React.useState(0);
+  const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0);
+  const [ displayMeals, setDisplayMeals] = useState(foods.filter((food)=> food.category == "Popular"))
+
+  // useEffect(() => {
+  // }, []);
+
+  const selectedCategoryHandler = (index) => {
+    setSelectedCategoryIndex(index)
+    // console.log(foods.filter((food)=> food.category == categories[index].name))
+    setDisplayMeals(foods.filter((food)=> food.category == categories[index].name))
+  }
 
   const ListCategories = () => {
     return (
@@ -35,7 +45,8 @@ const HomeScreen = ({ navigation }) => {
           <TouchableOpacity
             key={index}
             activeOpacity={0.8}
-            onPress={() => setSelectedCategoryIndex(index)}
+            onPress={() => selectedCategoryHandler(index)}
+            // onPress={() => setSelectedCategoryIndex(index)}
           >
             <View
               style={{
@@ -49,7 +60,7 @@ const HomeScreen = ({ navigation }) => {
               <View style={style.categoryBtnImgCon}>
                 <Image
                   source={category.image}
-                  style={{ height: 35, width: 35, resizeMode: "cover" }}
+                  style={{ height: 25, width: 25, resizeMode: "cover" }}
                 />
               </View>
               <Text
@@ -152,7 +163,7 @@ const HomeScreen = ({ navigation }) => {
       <FlatList
         showsVerticalScrollIndicator={false}
         numColumns={2}
-        data={foods}
+        data={displayMeals}
         renderItem={({ item }) => <Card food={item} />}
       />
     </SafeAreaView>
@@ -191,7 +202,7 @@ const style = StyleSheet.create({
   },
   categoryBtn: {
     height: 45,
-    width: 120,
+    width: 150,
     marginRight: 7,
     borderRadius: 30,
     alignItems: "center",
