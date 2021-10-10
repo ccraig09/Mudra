@@ -18,6 +18,9 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import Colors from "../constants/Colors";
 import categories from "../components/categories";
 import foods from "../components/foods";
+import { useSelector, useDispatch } from "react-redux";
+import * as cartActions from "../store/cartAction";
+
 const { width } = Dimensions.get("screen");
 const cardWidth = width / 2 - 20;
 
@@ -25,6 +28,7 @@ const HomeScreen = ({ navigation }) => {
   const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0);
   const [ displayMeals, setDisplayMeals] = useState(foods.filter((food)=> food.popular == true))
   const [inMemoryFood, setInMemoryFood] = useState(foods);
+  const dispatch = useDispatch();
 
   // useEffect(() => {
   // }, []);
@@ -134,9 +138,9 @@ const HomeScreen = ({ navigation }) => {
             <Text style={{ fontSize: 18, fontWeight: "bold" }}>
               ${food.price}
             </Text>
-            <View style={style.addToCartBtn}>
+            <TouchableOpacity style={style.addToCartBtn} onPress={() => {dispatch(cartActions.addToCart(food));}}>
               <Icon name="add" size={20} color={Colors.white} />
-            </View>
+            </TouchableOpacity>
           </View>
         </View>
       </TouchableHighlight>

@@ -5,11 +5,36 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import Colors from "../constants/Colors";
 import foods from "../components/foods";
 import { PrimaryButton } from "../components/Button";
-import CartItem from "../components/shop/CartItem";
-import Card from "../components/UI/Card";
+import { useSelector, useDispatch } from "react-redux";
+
+// import CartItem from "../components/shop/CartItem";
+// import Card from "../components/UI/Card";
 
 
 const CartScreen = ({ navigation }) => {
+
+  const cartTotalAmount = useSelector((state) => state.cart.totalAmount);
+  const cartItems = useSelector((state) => {
+    const transformedCartItems = [];
+    for (const key in state.cart.items) {
+      transformedCartItems.push({
+        productId: key,
+        productTitle: state.cart.items[key].productTitle,
+        productPrice: state.cart.items[key].productPrice,
+        quantity: state.cart.items[key].quantity,
+        sum: state.cart.items[key].sum,
+        productcode: state.cart.items[key].productcode,
+      });
+    }
+    return transformedCartItems.sort((a, b) =>
+      a.productId > b.productId ? 1 : -1
+    );
+  });
+
+
+  console.log(cartItems)
+
+
   const CartCard = ({ item }) => {
     return (
       <View style={style.cartCard}>
@@ -66,7 +91,8 @@ const CartScreen = ({ navigation }) => {
               }}
             >
               <Text style={{ fontSize: 18, fontWeight: "bold" }}>Total</Text>
-              <Text style={{ fontSize: 18, fontWeight: "bold" }}>$50</Text>
+              {/* <Text style={{ fontSize: 18, fontWeight: "bold" }}>{cartTotalAmount}bs</Text> */}
+              <Text style={{ fontSize: 18, fontWeight: "bold" }}>{Math.round(cartTotalAmount.toFixed(2) * 100) / 100}bs</Text>
             </View>
             <View style={{ marginHorizontal: 30 }}>
               <PrimaryButton title="PEDIR" />
