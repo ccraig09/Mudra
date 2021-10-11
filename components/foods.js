@@ -1,50 +1,48 @@
 const foods = [
   {
-    id: "1",
-    name: "Meat Pizza",
+    productId: "1",
+    productTitle: "Meat Pizza",
     category: "Pizza",
-    ingredients: "Mixed Pizza",
-    price: 8.30,
-    image: require("../assets/meatPizza.png"),
-    productId: 1
+    productIngredients: "Mixed Pizza",
+    price: 33,
+    productImage: require("../assets/meatPizza.png"),
 
   },
   {
-    id: "2",
-    name: "Cheese Pizza",
+    productId: "2",
+    productTitle: "Cheese Pizza",
     category: "Pizza",
     popular: true,
-    ingredients: "Cheese Pizza",
-    price: 7.10,
-    image: require("../assets/cheesePizza.png"),
-    productId:2
+    productIngredients: "Cheese Pizza",
+    productPrice: 35,
+    productImage: require("../assets/cheesePizza.png"),
   },
   {
-    id: "3",
+    productId: "3",
     category: "Burgers",
-    name: "Chicken Burger",
+    productTitle: "Chicken Burger",
     popular: true,
-    ingredients: "Fried Chicken",
-    price: 5.10,
-    image: require("../assets/chickenBurger.png"),
-    productId:3
+    productIngredients: "Fried Chicken",
+    productPrice: 22,
+    productImage: require("../assets/chickenBurger.png"),
+ 
   },
   {
-    id: "4",
+    productId: "4",
     category: "Sushi",
     popular: true,
-    name: "Sushi Makizushi",
-    ingredients: "Salmon Meat",
-    price: 9.55,
-    image: require("../assets/sushiMakizushi.png"),
-    productId:4
+    productTitle: "Sushi Makizushi",
+    productIngredients: "Salmon Meat",
+    productPrice: 55,
+    productImage: require("../assets/sushiMakizushi.png"),
+   
   },
   // {
   //   id: "5",
   //   name: "Cheese Pizza",
   //   category: "Popular",
   //   ingredients: "Cheese Pizza",
-  //   price: "7.10",
+  //   productPrice: "7.10",
   //   image: require("../assets/cheesePizza.png"),
   // },
   // {

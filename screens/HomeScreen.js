@@ -117,14 +117,14 @@ const HomeScreen = ({ navigation }) => {
       >
         <View style={style.card}>
           <View style={{ alignItems: "center", top: -40 }}>
-            <Image source={food.image} style={{ height: 120, width: 120 }} />
+            <Image source={food.productImage} style={{ height: 120, width: 120 }} />
           </View>
           <View style={{ marginHorizontal: 20 }}>
             <Text style={{ fontSize: 18, fontWeight: "bold" }}>
-              {food.name}
+              {food.productTitle}
             </Text>
             <Text style={{ fontSize: 14, color: Colors.grey, marginTop: 2 }}>
-              {food.ingredients}
+              {food.productIngredients}
             </Text>
           </View>
           <View
@@ -136,7 +136,7 @@ const HomeScreen = ({ navigation }) => {
             }}
           >
             <Text style={{ fontSize: 18, fontWeight: "bold" }}>
-              ${food.price}
+              {food.productPrice} bs
             </Text>
             <TouchableOpacity style={style.addToCartBtn} onPress={() => {dispatch(cartActions.addToCart(food));}}>
               <Icon name="add" size={20} color={Colors.white} />

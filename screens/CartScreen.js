@@ -6,12 +6,14 @@ import Colors from "../constants/Colors";
 import foods from "../components/foods";
 import { PrimaryButton } from "../components/Button";
 import { useSelector, useDispatch } from "react-redux";
+import * as cartActions from "../store/cartAction";
 
 // import CartItem from "../components/shop/CartItem";
 // import Card from "../components/UI/Card";
 
 
 const CartScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
 
   const cartTotalAmount = useSelector((state) => state.cart.totalAmount);
   const cartItems = useSelector((state) => {
@@ -24,6 +26,8 @@ const CartScreen = ({ navigation }) => {
         quantity: state.cart.items[key].quantity,
         sum: state.cart.items[key].sum,
         productcode: state.cart.items[key].productcode,
+        productImage: state.cart.items[key].image,
+        productIngredients: state.cart.items[key].ingredients,
       });
     }
     return transformedCartItems.sort((a, b) =>
@@ -38,7 +42,7 @@ const CartScreen = ({ navigation }) => {
   const CartCard = ({ item }) => {
     return (
       <View style={style.cartCard}>
-        <Image source={item.image} style={{ height: 80, width: 80 }} />
+        <Image source={item.productImage} style={{ height: 80, width: 80 }} />
         <View
           style={{
             height: 100,
@@ -47,21 +51,21 @@ const CartScreen = ({ navigation }) => {
             flex: 1,
           }}
         >
-          <Text style={{ fontWeight: "bold", fontSize: 16 }}>{item.name}</Text>
+          <Text style={{ fontWeight: "bold", fontSize: 16 }}>{item.productTitle}</Text>
           <Text style={{ fontSize: 13, color: Colors.grey }}>
-            {item.ingredients}
+            {item.productIngredients}
           </Text>
           <Text style={{ fontSize: 17, fontWeight: "bold" }}>
-            ${item.price}
+            ${item.productPrice}
           </Text>
         </View>
         <View style={{ marginRight: 20, alignItems: "center" }}>
-          <Text style={{ fontWeight: "bold", fontSize: 18 }}>3</Text>
+          <Text style={{ fontWeight: "bold", fontSize: 18 }}>{item.quantity}x</Text>
           <View style={style.actionBtn}>
-            <TouchableOpacity style={{marginTop: 2}} onPress={()=>{console.log('minus')}}>
+            <TouchableOpacity style={{marginTop: 2}} onPress={()=>{dispatch(cartActions.removeFromCart(item.productId));}}>
             <Icon  name="remove" size={25} color={Colors.white} />
             </TouchableOpacity>
-            <TouchableOpacity onPress={()=>{console.log('plus')}}>
+            <TouchableOpacity onPress={()=>{dispatch(cartActions.addToCart(item));}}>
             <Icon name="add" size={25} color={Colors.white} />
             </TouchableOpacity>
           </View>
@@ -78,7 +82,7 @@ const CartScreen = ({ navigation }) => {
       <FlatList
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 80 }}
-        data={foods}
+        data={cartItems}
         renderItem={({ item }) => <CartCard item={item} />}
         ListFooterComponentStyle={{ paddingHorizontal: 20, marginTop: 20 }}
         ListFooterComponent={() => (
@@ -92,10 +96,10 @@ const CartScreen = ({ navigation }) => {
             >
               <Text style={{ fontSize: 18, fontWeight: "bold" }}>Total</Text>
               {/* <Text style={{ fontSize: 18, fontWeight: "bold" }}>{cartTotalAmount}bs</Text> */}
-              <Text style={{ fontSize: 18, fontWeight: "bold" }}>{Math.round(cartTotalAmount.toFixed(2) * 100) / 100}bs</Text>
+              <Text style={{ fontSize: 18, fontWeight: "bold" }}>{Math.round(cartTotalAmount.toFixed(2) * 100) / 100} bs</Text>
             </View>
             <View style={{ marginHorizontal: 30 }}>
-              <PrimaryButton title="PEDIR" />
+              <PrimaryButton onPress={()=>{console.log('order up')}} data={cartItems} title="PEDIR" />
             </View>
           </View>
         )}

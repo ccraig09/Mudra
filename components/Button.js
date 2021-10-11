@@ -2,10 +2,10 @@ import React from "react";
 import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
 import Colors from "../constants/Colors";
 
-const PrimaryButton = ({ title, onPress = () => {} }) => {
+const PrimaryButton = ({data, title, onPress = () => {} }) => {
   return (
-    <TouchableOpacity activeOpacity={0.8} onPress={onPress}>
-      <View style={style.btnContainer}>
+    <TouchableOpacity disabled={data.length===0} activeOpacity={0.8} onPress={onPress}>
+      <View style={{ ...style.btnContainer, backgroundColor: data.length===0? "grey": Colors.primary }}>
         <Text style={style.title}>{title}</Text>
       </View>
     </TouchableOpacity>

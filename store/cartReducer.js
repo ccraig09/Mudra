@@ -19,10 +19,12 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case ADD_TO_CART:
       const addedProduct = action.product;
-      const prodPrice = addedProduct.price;
-      const prodTitle = addedProduct.name;
-      const prodCode = addedProduct.id;
+      const prodPrice = addedProduct.productPrice;
+      const prodTitle = addedProduct.productTitle;
+      const prodCode = addedProduct.productId;
 //code can be change to docid from firebase when ready
+const prodImage = addedProduct.productImage;
+const prodIngredients = addedProduct.productIngredients;
       let updatedOrNewCartItem;
 
       if (state.items[addedProduct.productId]) {
@@ -32,7 +34,9 @@ export default (state = initialState, action) => {
           prodPrice,
           prodTitle,
           state.items[addedProduct.productId].sum + prodPrice,
-          prodCode
+          prodCode,
+          prodImage,
+          prodIngredients
         );
       } else {
         updatedOrNewCartItem = new CartItem(
@@ -40,7 +44,9 @@ export default (state = initialState, action) => {
           prodPrice,
           prodTitle,
           prodPrice,
-          prodCode
+          prodCode,
+          prodImage,
+          prodIngredients
         );
       }
       return {
@@ -104,8 +110,9 @@ export default (state = initialState, action) => {
           selectedCartItem.productPrice,
           selectedCartItem.productTitle,
           selectedCartItem.sum - selectedCartItem.productPrice,
-          selectedCartItem.isChecked,
-          selectedCartItem.productcode
+          selectedCartItem.productcode,
+          selectedCartItem.image,
+          selectedCartItem.ingredients,
         );
         updatedCartItems = { ...state.items, [action.pid]: updatedCartItem };
       } else {

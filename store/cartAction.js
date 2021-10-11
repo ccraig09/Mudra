@@ -6,7 +6,7 @@ export const COMPLETE_REMOVE_FROM_CART = "COMPLETE_REMOVE_FROM_CART";
 
 export const addToCart = (product) => {
   console.log("cart action ORIGINAL", product);
-
+  
   return { type: ADD_TO_CART, product: product };
 };
 export const editCart = (product, newPrice) => {
@@ -15,6 +15,7 @@ export const editCart = (product, newPrice) => {
 };
 
 export const removeFromCart = (productId) => {
+  console.log("cart action ORIGINAL", productId);
   return { type: REMOVE_FROM_CART, pid: productId };
 };
 export const completeRemoveFromCart = (productId) => {
